@@ -129,7 +129,12 @@ export default function Switcher() {
           />
         </Reveal>
 
-        <Reveal mode="wipe"><Seam /></Reveal>
+        {/* No reveal wrapper here on purpose. A clip-path on an ancestor is
+            applied when the browser computes a descendant's intersection rect,
+            and VisionCanvas gates its draw loop on exactly that — so a wipe
+            over this block leaves the Blind half permanently unpainted. It is
+            also the page's primary proof: it should simply be here. */}
+        <Seam />
       </div>
     </section>
   );

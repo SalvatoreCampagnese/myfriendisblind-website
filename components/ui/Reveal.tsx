@@ -25,27 +25,52 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // Safety net: anything already on screen at mount is shown immediately,
-    // without waiting for an observer callback. IntersectionObserver is
-    // suspended while a tab is hidden, and a reveal that never fires is a
-    // blank page rather than a missing animation.
-    const r = el.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) {
+
+    // Anything already on screen is shown immediately, without waiting for an
+    // observer callback.
+    const onScreen = () => {
+      const r = el.getBoundingClientRect();
+      return r.top < window.innerHeight * 0.92 && r.bottom > 0;
+    };
+
+    if (onScreen()) {
       el.setAttribute(attr, "in");
       return;
     }
 
-    const io = new IntersectionObserver(
+    let io: IntersectionObserver | null = null;
+
+    function stop() {
+      io?.disconnect();
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    }
+
+    function check() {
+      if (!el || !onScreen()) return;
+      el.setAttribute(attr, "in");
+      stop();
+    }
+
+    io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
           el.setAttribute(attr, "in");
-          io.disconnect();
+          stop();
         }
       },
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
     io.observe(el);
-    return () => io.disconnect();
+
+    // Safety net. An IntersectionObserver is suspended while a tab is hidden,
+    // and its geometry is clipped by any ancestor overflow or clip-path — so a
+    // reveal that never fires is a blank section rather than a missing
+    // animation. Scroll position is the ground truth; this cannot get stuck.
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check, { passive: true });
+
+    return stop;
   }, [attr]);
 
   const props = {
