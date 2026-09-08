@@ -150,7 +150,7 @@ export default function TheGame() {
       <div className="shell" style={{ position: "relative" }}>
         <Reveal>
           <SectionHead
-            index="01"
+            index="04"
             kicker="the premise"
             title={<>You cannot move<br />your friend.</>}
             lede="You can only talk. Everything this game is made of falls out of that one restriction."

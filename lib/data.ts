@@ -80,28 +80,6 @@ export const LADDER = [
   { rung: 6, gets: "naming something language cannot say", eg: "a symmetric room, a stale map" },
 ];
 
-export const PALETTE = [
-  { hex: "#23262B", name: "charcoal",      role: "structure",  use: "walls, floors, frames" },
-  { hex: "#3A4048", name: "dark steel",    role: "structure",  use: "machinery bodies" },
-  { hex: "#5A626D", name: "steel",         role: "structure",  use: "trim, fittings" },
-  { hex: "#8C8C86", name: "concrete",      role: "structure",  use: "floor slabs" },
-  { hex: "#E8701A", name: "orange",        role: "warning",    use: "machinery you touch" },
-  { hex: "#F2C200", name: "safety yellow", role: "warning",    use: "hazard striping" },
-  { hex: "#C0392B", name: "red",           role: "danger",     use: "active hazards, locked" },
-  { hex: "#3CD65C", name: "green",         role: "safe",       use: "unlocked, the exit" },
-  { hex: "#22D3EE", name: "cyan",          role: "tech",       use: "screens, the Blind accent" },
-  { hex: "#5AA318", name: "toxic",         role: "toxic",      use: "the pit, and nothing else" },
-];
-
-export const SPECS = [
-  { value: 69,    suffix: "",   label: "modular kit assets",   note: "generated from Blender build scripts" },
-  { value: 47.9,  suffix: "k",  label: "triangles, whole kit", note: "690 each on average" },
-  { value: 26,    suffix: "",   label: "flat-shaded materials", note: "no texture maps at all" },
-  { value: 35,    suffix: "",   label: "shader uniforms",      note: "one vision effect, four profiles" },
-  { value: 30,    suffix: "",   label: "floors written",       note: "a run plays eight of them" },
-  { value: 242,   suffix: "",   label: "test assertions",      note: "four prove a client cannot cheat" },
-];
-
 export const LOOP = [
   { id: "LOBBY",     line: "both ready · host starts" },
   { id: "COUNTDOWN", line: "three" },

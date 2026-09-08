@@ -140,7 +140,7 @@ export default function Perks() {
       <div className="shell">
         <Reveal>
           <SectionHead
-            index="04"
+            index="07"
             kicker="two buttons, and only two"
             title={<>One buys clarity.<br />One buys a hint.</>}
             lede="Charges are pips under the badge, not “x2”: the Blind reads this while moving, and two boxes with one of them dark is a shape, while “VISOR x1” is a sentence."

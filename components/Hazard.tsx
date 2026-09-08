@@ -157,7 +157,7 @@ export default function Hazard() {
       <div className="shell" style={{ position: "relative" }}>
         <Reveal>
           <SectionHead
-            index="03"
+            index="06"
             kicker="the hazard"
             title={<>Ten seconds.<br />Five of them kill.</>}
             lede="One robot arm sweeping the only route north. The dial below is live — it is the same clock the beacon in the nav bar is reading. Call the go, and find out whether your friend is still alive."

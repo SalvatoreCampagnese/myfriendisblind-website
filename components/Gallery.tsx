@@ -16,12 +16,12 @@ export default function Gallery() {
   const [blind, setBlind] = useState<number | null>(null);
 
   return (
-    <section className="section" style={{ background: "#0A0D11", position: "relative", overflow: "hidden" }}>
+    <section id="rooms" className="section" style={{ background: "#0A0D11", position: "relative", overflow: "hidden" }}>
       <div className="gridfield" />
       <div className="shell" style={{ position: "relative" }}>
         <Reveal>
           <SectionHead
-            index="06"
+            index="03"
             kicker="the rooms"
             title={<>Colour is vocabulary.</>}
             lede="Colour zones give the Guide words to use. “The orange room” is a usable sentence; “the third room” is not. Hold a shot to take the light away."

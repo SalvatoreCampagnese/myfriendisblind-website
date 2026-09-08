@@ -154,9 +154,23 @@ export default function Outro() {
             documents. The vision effect above is the shipping shader, ported to
             WebGL2 — same terms, same order, same numbers.
           </div>
-          <a href="#top" className="mono" style={{ fontSize: 11, letterSpacing: "0.16em", color: "var(--yellow)", textDecoration: "none" }}>
-            BACK TO THE TOP ↑
-          </a>
+          <div style={{ display: "grid", gap: 10, justifyItems: "start" }}>
+            <a
+              href="https://discord.gg/49wCWwHqq"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mono"
+              style={{
+                fontSize: 11, letterSpacing: "0.14em", textDecoration: "none",
+                color: "#0B0A05", background: "var(--yellow)", padding: "9px 15px",
+              }}
+            >
+              JOIN THE DISCORD →
+            </a>
+            <a href="#top" className="mono" style={{ fontSize: 11, letterSpacing: "0.16em", color: "var(--ink-faint)", textDecoration: "none" }}>
+              BACK TO THE TOP ↑
+            </a>
+          </div>
         </div>
       </footer>
 

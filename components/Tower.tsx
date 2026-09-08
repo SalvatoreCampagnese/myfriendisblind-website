@@ -42,7 +42,7 @@ export default function Tower() {
       <div className="shell">
         <Reveal>
           <SectionHead
-            index="05"
+            index="02"
             kicker="the campaign"
             title={<>Thirty floors.<br />You will play eight.</>}
             lede="A level is not harder because it does more damage. A level is harder because the sentence the Guide has to say gets harder to say. That is the only axis this ladder is measured on."

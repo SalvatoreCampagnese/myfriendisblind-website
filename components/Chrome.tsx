@@ -12,12 +12,14 @@ import { HAZARD_CYCLE } from "@/lib/clock";
    the role design, never from an unusable interface. */
 
 const NAV = [
+  { href: "#switcher", label: "THE SEAM" },
+  { href: "#tower", label: "THE TOWER" },
+  { href: "#rooms", label: "THE ROOMS" },
   { href: "#the-game", label: "THE GAME" },
   { href: "#roles", label: "ROLES" },
-  { href: "#hazard", label: "TIMING" },
-  { href: "#tower", label: "THE TOWER" },
-  { href: "#make", label: "THE MAKE" },
 ];
+
+const DISCORD = "https://discord.gg/49wCWwHqq";
 
 export default function Chrome() {
   const { flash, ping, phaseIndex, pings } = useClarity();
@@ -42,7 +44,7 @@ export default function Chrome() {
   return (
     <>
       <a
-        href="#the-game"
+        href="#switcher"
         style={{
           position: "absolute", left: -9999, top: 0, zIndex: 999,
           background: "var(--yellow)", color: "#000", padding: "10px 16px",
@@ -155,6 +157,20 @@ export default function Chrome() {
               />
               <span style={{ position: "relative" }}>F · FLASH</span>
             </button>
+
+            <a
+              href={DISCORD}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mono nav-discord"
+              style={{
+                fontSize: 10.5, letterSpacing: "0.12em", padding: "6px 12px",
+                textDecoration: "none", color: "#0B0A05",
+                background: "var(--yellow)",
+              }}
+            >
+              DISCORD
+            </a>
           </div>
         </div>
       </header>
@@ -189,6 +205,7 @@ export default function Chrome() {
         @keyframes blipfade { 0% { opacity: 0; } 18% { opacity: 1; } 100% { opacity: 0; } }
         .navlink:hover { color: var(--yellow) !important; }
         .hud-btn:hover { filter: brightness(1.35); }
+        .nav-discord:hover { filter: brightness(1.12); }
         .hud-btn:active { transform: translateY(1px); }
         @media (max-width: 980px) { .nav-links { display: none !important; } }
         @media (max-width: 480px) {
