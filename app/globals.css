@@ -1,26 +1,258 @@
 @import "tailwindcss";
 
+/* =====================================================================
+   MY FRIEND IS BLIND — web design system
+   Palette, grid and lighting tiers are lifted verbatim from the game's
+   docs/ART_DIRECTION.md. Structure is neutral; colour carries meaning.
+   ===================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* structure */
+  --void:        #07090C;
+  --charcoal:    #23262B;
+  --steel-dark:  #3A4048;
+  --steel:       #5A626D;
+  --concrete:    #8C8C86;
+
+  /* meaning — used sparingly, on purpose */
+  --orange:      #E8701A;
+  --yellow:      #F2C200;
+  --red:         #C0392B;
+  --green:       #3CD65C;
+  --cyan:        #22D3EE;
+  --toxic:       #5AA318;
+
+  /* type */
+  --ink:         #E6EAEF;
+  --ink-dim:     #97A0AC;
+  --ink-faint:   #5C6672;
+
+  /* the 5.0 m grid, as a layout module */
+  --grid: 5rem;
+
+  /* published every frame by ClarityProvider */
+  --clarity: 0.09;
+
+  --edge: color-mix(in srgb, var(--steel-dark) 70%, transparent);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-void: var(--void);
+  --color-charcoal: var(--charcoal);
+  --color-steel-dark: var(--steel-dark);
+  --color-steel: var(--steel);
+  --color-concrete: var(--concrete);
+  --color-orange: var(--orange);
+  --color-yellow: var(--yellow);
+  --color-red: var(--red);
+  --color-green: var(--green);
+  --color-cyan: var(--cyan);
+  --color-toxic: var(--toxic);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink-faint: var(--ink-faint);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--void);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--cyan); color: #04070A; }
+
+/* ---------------------------------------------------------------- type */
+
+.display {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.stencil {
+  font-family: var(--font-display), Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+
+.lede { font-size: clamp(1.05rem, 2.1vw, 1.35rem); color: var(--ink-dim); }
+
+/* -------------------------------------------------------------- layout */
+
+.shell {
+  width: min(1240px, 100% - 3rem);
+  margin-inline: auto;
+}
+@media (max-width: 640px) { .shell { width: calc(100% - 1.75rem); } }
+
+.section { padding-block: clamp(5rem, 12vh, 9rem); position: relative; }
+section[id] { scroll-margin-top: 78px; }
+
+/* ----------------------------------------------------- industrial trim */
+
+/* Hazard striping. The one graphic device the whole kit shares. */
+.stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--yellow) 0 14px,
+    #16181B 14px 28px
+  );
+}
+.stripe-thin {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--yellow) 0 6px,
+    #16181B 6px 12px
+  );
+}
+
+.plate {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--charcoal) 92%, white 8%), var(--charcoal));
+  border: 1px solid var(--edge);
+  border-radius: 3px;
+  position: relative;
+}
+/* four bolts, like every asset in the kit */
+.plate::before,
+.plate::after {
+  content: "";
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--steel);
+  box-shadow: 0 1px 0 #000;
+}
+.plate::before { top: 9px; left: 9px; }
+.plate::after  { bottom: 9px; left: 9px; }
+
+.hairline { height: 1px; background: var(--edge); border: 0; }
+
+/* the 5 m grid, as a backdrop */
+.gridfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--steel-dark) 34%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--steel-dark) 34%, transparent) 1px, transparent 1px);
+  background-size: var(--grid) var(--grid);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 45%, #000 0%, transparent 78%);
+  opacity: 0.55;
+}
+
+/* ------------------------------------------------------------ reveals */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 0.84, 0.28, 1),
+    transform 0.7s cubic-bezier(0.16, 0.84, 0.28, 1);
+  transition-delay: var(--d, 0ms);
+}
+[data-reveal="in"] { opacity: 1; transform: none; }
+
+[data-reveal-x] {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  transition: opacity .5s ease, clip-path 0.9s cubic-bezier(0.16, 0.84, 0.28, 1);
+  transition-delay: var(--d, 0ms);
+}
+[data-reveal-x="in"] { opacity: 1; clip-path: inset(0 0 0 0); }
+
+/* -------------------------------------------------------- keyframes */
+
+@keyframes beacon {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 1; }
+}
+@keyframes drift {
+  0%   { transform: translate3d(0,0,0); }
+  50%  { transform: translate3d(0,-10px,0); }
+  100% { transform: translate3d(0,0,0); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97%           { opacity: 0.32; }
+  98%           { opacity: 0.9; }
+  99%           { opacity: 0.45; }
+}
+@keyframes blip {
+  0%   { transform: scale(0.3); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@keyframes caret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+.beacon  { animation: beacon 1.6s ease-in-out infinite; }
+.drift   { animation: drift 7s ease-in-out infinite; }
+.flicker { animation: flicker 6.5s linear infinite; }
+
+/* grain — the same dither the shader uses to hide mip banding */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* --------------------------------------------------------- utilities */
+
+.glow-cyan   { box-shadow: 0 0 0 1px color-mix(in srgb, var(--cyan) 45%, transparent), 0 0 28px -6px var(--cyan); }
+.glow-green  { box-shadow: 0 0 0 1px color-mix(in srgb, var(--green) 45%, transparent), 0 0 28px -6px var(--green); }
+.glow-red    { box-shadow: 0 0 0 1px color-mix(in srgb, var(--red) 55%, transparent), 0 0 34px -6px var(--red); }
+.glow-yellow { box-shadow: 0 0 0 1px color-mix(in srgb, var(--yellow) 45%, transparent), 0 0 28px -6px var(--yellow); }
+
+.clip-tag {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%);
+}
+.clip-plate {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #0B0E12; }
+::-webkit-scrollbar-thumb { background: var(--steel-dark); border: 2px solid #0B0E12; }
+::-webkit-scrollbar-thumb:hover { background: var(--steel); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal], [data-reveal-x] { opacity: 1; transform: none; clip-path: none; }
 }
