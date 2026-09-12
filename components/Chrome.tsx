@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useClarity, useFrame } from "@/components/ClarityProvider";
 import { HAZARD_CYCLE } from "@/lib/clock";
@@ -11,12 +12,15 @@ import { HAZARD_CYCLE } from "@/lib/clock";
    game does the same thing on CanvasLayer 10. The disadvantage comes from
    the role design, never from an unusable interface. */
 
-const NAV = [
-  { href: "#switcher", label: "THE SEAM" },
-  { href: "#tower", label: "THE TOWER" },
-  { href: "#rooms", label: "THE ROOMS" },
-  { href: "#the-game", label: "THE GAME" },
-  { href: "#roles", label: "ROLES" },
+/* Route-absolute, not bare fragments: the same header is drawn over /pitch,
+   where there is no #tower to jump to. */
+const NAV: { href: string; label: string; accent?: boolean }[] = [
+  { href: "/#switcher", label: "THE SEAM" },
+  { href: "/#tower", label: "THE TOWER" },
+  { href: "/#rooms", label: "THE ROOMS" },
+  { href: "/#the-game", label: "THE GAME" },
+  { href: "/#roles", label: "ROLES" },
+  { href: "/pitch", label: "PITCH", accent: true },
 ];
 
 const DISCORD = "https://discord.gg/49wCWwHqq";
@@ -44,7 +48,7 @@ export default function Chrome() {
   return (
     <>
       <a
-        href="#switcher"
+        href="#top"
         style={{
           position: "absolute", left: -9999, top: 0, zIndex: 999,
           background: "var(--yellow)", color: "#000", padding: "10px 16px",
@@ -71,7 +75,7 @@ export default function Chrome() {
             height: 62, justifyContent: "space-between",
           }}
         >
-          <a href="#top" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+          <Link href="/#top" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
             <span
               aria-hidden
               className="beacon"
@@ -84,21 +88,25 @@ export default function Chrome() {
             <span className="display brandmark" style={{ fontSize: 15, color: "var(--ink)", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
               MY FRIEND IS BLIND
             </span>
-          </a>
+          </Link>
 
           <nav style={{ display: "flex", gap: "1.4rem" }} className="nav-links">
             {NAV.map((n) => (
-              <a
+              <Link
                 key={n.href}
                 href={n.href}
                 className="mono navlink"
                 style={{
                   fontSize: 11, letterSpacing: "0.14em", textDecoration: "none",
-                  color: "var(--ink-dim)", transition: "color 180ms",
+                  color: n.accent ? "var(--yellow)" : "var(--ink-dim)",
+                  transition: "color 180ms",
+                  ...(n.accent
+                    ? { borderBottom: "1px solid color-mix(in srgb, var(--yellow) 45%, transparent)", paddingBottom: 2 }
+                    : null),
                 }}
               >
                 {n.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
