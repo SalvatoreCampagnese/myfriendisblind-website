@@ -8,8 +8,8 @@ import { useReducedMotion } from "@/lib/useReducedMotion";
 import {
   ASKS, ASSUMPTIONS, BREAK_EVEN, COMPARABLES, CREATORS, CUTS, FIXED_COST_EUR, SLIDES,
   FOUNDER, GTM, HITS, LOOP, MARGINS, MULTIPLIER, NEXT_STEPS, PILLARS,
-  ASK_BEYOND_CAPITAL, ASK_TOTAL_EUR, ASK_USE, COST_PER_RELAYED_SESSION, eur, FREE_SESSIONS,
-  GB_PER_RELAYED_SESSION, INFRA, PLATFORM_COLOUR, PROJECTIONS, ROADMAP, SCALE,
+  COST_PER_RELAYED_SESSION, FREE_SESSIONS, GB_PER_RELAYED_SESSION, INFRA,
+  PLATFORM_COLOUR, PROJECTIONS, ROADMAP, SCALE,
   SOURCES_CREATOR, SOURCES_MARKET, STATUS_COLOUR, UNIT, usdK,
 } from "@/lib/pitch";
 
@@ -1182,11 +1182,11 @@ function Scale() {
             </p>
           </div>
           <div className="pitch-figure" style={{ textAlign: "right" }}>
-            <div className="display" style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.2rem)", color: "var(--yellow)", lineHeight: 1 }}>
-              {eur(ASK_TOTAL_EUR * 0.45)}
+            <div className="display" style={{ fontSize: "clamp(1.3rem, 2.9vw, 1.9rem)", color: "var(--yellow)", lineHeight: 1, whiteSpace: "nowrap" }}>
+              A GIORNATA
             </div>
             <div className="mono" style={{ fontSize: 9.5, letterSpacing: "0.1em", color: "var(--ink-faint)", marginTop: 5 }}>
-              45% DELL’ASK · ~{eur(Math.round((ASK_TOTAL_EUR * 0.45) / 12))}/MESE
+              NESSUN COSTO FISSO RICORRENTE
             </div>
           </div>
         </div>
@@ -1321,96 +1321,7 @@ function NextSteps() {
   );
 }
 
-/* ============================================================== 15 ask */
-
-function Ask() {
-  return (
-    <Body>
-      <Head
-        n="15"
-        kicker="l’ask"
-        title="Cosa chiedo"
-        lede="Il prodotto va in pari sotto le 1.100 copie. Il capitale non serve a sopravvivere: serve a comprare velocità in una finestra che si chiude."
-      />
-
-      <div className="pitch-2col" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.35fr)", gap: "0.8rem" }}>
-        <Card accent="var(--yellow)" d={200} glow>
-          <Kicker colour="var(--yellow)">round seed</Kicker>
-          <div className="display" style={{ fontSize: "clamp(2.2rem, 5.4vw, 3.5rem)", marginTop: 6, color: "var(--ink)", lineHeight: 1 }}>
-            <Num to={ASK_TOTAL_EUR} thousands prefix="€" />
-          </div>
-          <p style={{ margin: "0.7rem 0 0", fontSize: "0.88rem", lineHeight: 1.55, color: "var(--ink-dim)" }}>
-            Dodici mesi di runway per chiudere i 7 livelli, lanciare a metà ottobre e trasformare il primo titolo in
-            una pipeline.
-          </p>
-        </Card>
-
-        <A d={300} className="pcard" style={{ padding: "0.85rem 1.1rem" }}>
-          <Kicker colour="var(--concrete)">impiego dei fondi</Kicker>
-
-          {/* the allocation, as one bar and then as the rows that compose it */}
-          <div aria-hidden style={{ display: "flex", height: 12, marginTop: "0.6rem", overflow: "hidden", border: "1px solid var(--edge)" }}>
-            {ASK_USE.map((u, i) => (
-              <A key={u.name} mode="bar" d={420 + i * 80} style={{ width: `${u.pct * 100}%`, background: u.colour, opacity: 0.85 }}>{null}</A>
-            ))}
-          </div>
-
-          <div style={{ display: "grid", gap: "0.34rem", marginTop: "0.7rem" }}>
-            {ASK_USE.map((u, i) => (
-              <A key={u.name} d={500 + i * 70} className="mono ask-row" style={{
-                display: "grid", gridTemplateColumns: "11px 132px 58px minmax(0, 1fr)",
-                gap: 9, alignItems: "baseline", fontSize: 11,
-              }}>
-                <span aria-hidden style={{ width: 9, height: 9, background: u.colour, display: "inline-block" }} />
-                <span style={{ color: "var(--ink)", whiteSpace: "nowrap" }}>{u.name}</span>
-                <span style={{ color: u.colour, textAlign: "right" }}>{eur(ASK_TOTAL_EUR * u.pct)}</span>
-                <span style={{ color: "var(--ink-faint)", fontSize: 10 }}>{u.note}</span>
-              </A>
-            ))}
-          </div>
-        </A>
-      </div>
-
-      <div className="pitch-2col" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: "0.7rem", marginTop: "0.7rem" }}>
-        <Card accent="var(--green)" d={780}>
-          <Kicker colour="var(--green)">cosa non serve finanziare</Kicker>
-          <ul style={{ listStyle: "none", margin: "0.55rem 0 0", padding: 0, display: "grid", gap: "0.3rem" }}>
-            {[
-              ["Break-even prodotto", "1.073 copie, ~11% dello scenario FLOOR"],
-              ["Quota publisher", "nessuna: la revenue non è divisa"],
-              ["Infrastruttura", "$310 sull’intera vita a 100K copie"],
-            ].map(([k, v]) => (
-              <li key={k} className="mono" style={{ display: "flex", gap: 8, fontSize: 10.5, lineHeight: 1.45 }}>
-                <span aria-hidden style={{ color: "var(--green)" }}>›</span>
-                <span><span style={{ color: "var(--ink)" }}>{k}</span> — <span style={{ color: "var(--ink-faint)" }}>{v}</span></span>
-              </li>
-            ))}
-          </ul>
-        </Card>
-
-        <Card accent="var(--cyan)" d={860}>
-          <Kicker colour="var(--cyan)">oltre al capitale</Kicker>
-          <ul style={{ listStyle: "none", margin: "0.55rem 0 0", padding: 0, display: "grid", gap: "0.3rem" }}>
-            {ASK_BEYOND_CAPITAL.map((a) => (
-              <li key={a.what} className="mono" style={{ display: "flex", gap: 8, fontSize: 10.5, lineHeight: 1.45 }}>
-                <span aria-hidden style={{ color: "var(--cyan)" }}>›</span>
-                <span><span style={{ color: "var(--ink)" }}>{a.what}</span> — <span style={{ color: "var(--ink-faint)" }}>{a.why}</span></span>
-              </li>
-            ))}
-          </ul>
-        </Card>
-      </div>
-
-      <Foot d={960} m="0.55rem">
-        Ripartizione indicativa, non vincolante. Il break-even di 1.073 copie è quello della slide 11 e non include
-        il round: è il punto in cui il prodotto copre la spesa cash già sostenuta. Il moltiplicatore publisher è di
-        Over Powered Game Marketing.
-      </Foot>
-    </Body>
-  );
-}
-
-/* ========================================================= 16 appendix */
+/* ========================================================= 15 appendix */
 
 function Appendix() {
   const cols = [
@@ -1422,7 +1333,7 @@ function Appendix() {
   return (
     <Body>
       <Head
-        n="16"
+        n="15"
         kicker="appendice"
         title={<>Appendice · fonti &amp; assunzioni</>}
         lede="I dati pubblici sono separati dalle stime per mantenere il pitch verificabile."
@@ -1464,7 +1375,7 @@ function Appendix() {
 
 const BODIES = [
   Cover, Founder, Product, WhyNow, Comparable, Thesis, Creators,
-  Roadmap, Pricing, Projections, Margins, Scale, GoToMarket, NextSteps, Ask, Appendix,
+  Roadmap, Pricing, Projections, Margins, Scale, GoToMarket, NextSteps, Appendix,
 ];
 
 /* The rail and the bodies are two lists that have to stay the same length;

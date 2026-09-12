@@ -34,8 +34,7 @@ export const SLIDES: SlideMeta[] = [
   { id: "scale",      n: "12", label: "COSTI A SCALA",accent: C.cyan },
   { id: "gtm",        n: "13", label: "GO-TO-MARKET",accent: C.cyan },
   { id: "next",       n: "14", label: "NEXT STEPS",  accent: C.yellow },
-  { id: "ask",        n: "15", label: "L’ASK",       accent: C.yellow },
-  { id: "appendix",   n: "16", label: "APPENDICE",   accent: C.steel },
+  { id: "appendix",   n: "15", label: "APPENDICE",   accent: C.steel },
 ];
 
 /* ------------------------------------------------------------ 02 founder */
@@ -298,29 +297,6 @@ export const SCALE = PROJECTIONS.map((p) => {
   const cost = Math.max(0, gb - INFRA.freeGB) * INFRA.turnPerGB;
   return { tier: p.tier, colour: p.colour, copies, sessions, relayed, gb, cost };
 });
-
-/* --------------------------------------------------------------- 15 ask */
-
-export const ASK_TOTAL_EUR = 125_000;
-
-export const ASK_USE = [
-  { name: "Game design",        pct: 0.45, note: "consulente part-time da subito, 12 mesi", colour: C.yellow },
-  { name: "Creator / UA",       pct: 0.20, note: "seeding, launch week, short-form",        colour: C.orange },
-  { name: "Infra + scaling",    pct: 0.15, note: "relay, matchmaking, osservabilità",       colour: C.cyan },
-  { name: "Audio, art, QA",     pct: 0.15, note: "produzione esterna sui livelli",          colour: C.green },
-  { name: "Legale / societario",pct: 0.05, note: "contratti, publishing, compliance",       colour: C.steel },
-];
-
-export const ASK_BEYOND_CAPITAL = [
-  { what: "Partner di distribuzione", why: "accesso a canali che non ho" },
-  { what: "Publisher",                why: "4x più probabile superare $200K (Over Powered Game Marketing)" },
-  { what: "Playtester strutturati",   why: "20–50 coppie, misurate" },
-  { what: "Creator per la launch week", why: "l’attivazione è il canale principale" },
-];
-
-export function eur(n: number) {
-  return `€${n.toLocaleString("it-IT", { useGrouping: "always", maximumFractionDigits: 0 })}`;
-}
 
 /* ------------------------------------------------------------ 13 go-to-market */
 
